@@ -1,5 +1,6 @@
 use tcod::colors::*;
 use tcod::console::*;
+mod dungeon;
 mod map;
 use map::*;
 
@@ -86,7 +87,7 @@ fn main() {
     let mut tcod = Tcod { root, con };
 
     // creates a player and npc object and stores them in an objects array
-    let player = Object::new(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, '@', WHITE);
+    let player = Object::new(25, 23, '@', WHITE);
     let npc = Object::new(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, '@', YELLOW);
     let mut objects = [player, npc];
 

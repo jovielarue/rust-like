@@ -1,6 +1,9 @@
 use tcod::{console::blit, BackgroundFlag, Color, Console};
 
-use crate::{Object, Tcod};
+use crate::{
+    dungeon::{create_h_tunnel, create_room, Rect},
+    Object, Tcod,
+};
 
 pub const MAP_WIDTH: i32 = 80;
 pub const MAP_HEIGHT: i32 = 45;
@@ -40,7 +43,7 @@ impl Tile {
 }
 
 // Map is a 2-dimensional vector containing tiles
-type Map = Vec<Vec<Tile>>;
+pub type Map = Vec<Vec<Tile>>;
 
 pub struct Game {
     pub map: Map,
@@ -51,9 +54,11 @@ pub fn make_map() -> Map {
     // fills the vectors with MAP_WIDTH/MAP_HEIGHT number of tiles
     let mut map = vec![vec![Tile::empty(); MAP_HEIGHT as usize]; MAP_WIDTH as usize];
 
-    // place two walls in the map
-    map[30][22] = Tile::wall();
-    map[50][22] = Tile::wall();
+    let room1 = Rect::new(20, 15, 10, 15);
+    let room2 = Rect::new(50, 15, 10, 15);
+    create_room(room1, &mut map);
+    create_room(room2, &mut map);
+    create_h_tunnel(25, 55, 23, &mut map);
 
     map
 }
